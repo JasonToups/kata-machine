@@ -1,6 +1,8 @@
+.DS_Store
+.vscode
 node_modules
 ./ligma.config.js
 dist
 stats.json
-
+src/*
 

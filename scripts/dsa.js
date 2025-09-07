@@ -1,36 +1,53 @@
 const length_property = {
-    properties: [{
-        name: "length",
-        type: "number",
-        scope: "public",
-    }]
+    properties: [
+        {
+            name: "length",
+            type: "number",
+            scope: "public",
+            fieldComment: "Number of items in the data structure",
+        },
+    ],
 };
+
 const list_interface = {
-    methods: [{
-        name: "prepend",
-        args: "item: T",
-        return: "void",
-    }, {
-        name: "insertAt",
-        args: "item: T, idx: number",
-        return: "void",
-    }, {
-        name: "append",
-        args: "item: T",
-        return: "void",
-    }, {
-        name: "remove",
-        args: "item: T",
-        return: "T | undefined",
-    }, {
-        name: "get",
-        args: "idx: number",
-        return: "T | undefined",
-    }, {
-        name: "removeAt",
-        args: "idx: number",
-        return: "T | undefined",
-    }],
+    methods: [
+        {
+            name: "prepend",
+            args: "item: T",
+            return: "void",
+            comment: "Add item to the beginning of the list",
+        },
+        {
+            name: "insertAt",
+            args: "item: T, idx: number",
+            return: "void",
+            comment: "Insert item at specific index",
+        },
+        {
+            name: "append",
+            args: "item: T",
+            return: "void",
+            comment: "Add item to the end of the list",
+        },
+        {
+            name: "remove",
+            args: "item: T",
+            return: "T | undefined",
+            comment: "Remove first occurrence of item",
+        },
+        {
+            name: "get",
+            args: "idx: number",
+            return: "T | undefined",
+            comment: "Get item at specific index",
+        },
+        {
+            name: "removeAt",
+            args: "idx: number",
+            return: "T | undefined",
+            comment: "Remove item at specific index",
+        },
+    ],
     ...length_property,
 };
 
@@ -38,80 +55,106 @@ module.exports = {
     LRU: {
         generic: "<K, V>",
         type: "class",
-        methods: [{
-            name: "update",
-            args: "key: K, value: V",
-            return: "void",
-        }, {
-            name: "get",
-            args: "key: K",
-            return: "V | undefined",
-        }],
-        properties: [{
-            name: "length",
-            type: "number",
-            scope: "private",
-        }]
+        comment: "Least Recently Used cache implementation",
+        methods: [
+            {
+                name: "update",
+                args: "key: K, value: V",
+                return: "void",
+                comment:
+                    "Update or add key-value pair, marking as recently used",
+            },
+            {
+                name: "get",
+                args: "key: K",
+                return: "V | undefined",
+                comment: "Get value by key, marking as recently used",
+            },
+        ],
+        properties: [
+            {
+                name: "length",
+                type: "number",
+                scope: "private",
+                fieldComment: "Current number of items in cache",
+            },
+        ],
     },
     MinHeap: {
         type: "class",
-        methods: [{
-            name: "insert",
-            args: "value: number",
-            return: "void",
-        }, {
-            name: "delete",
-            args: "",
-            return: "number",
-        }],
-        properties: [{
-            name: "length",
-            type: "number",
-            scope: "public",
-        }]
+        methods: [
+            {
+                name: "insert",
+                args: "value: number",
+                return: "void",
+            },
+            {
+                name: "delete",
+                args: "",
+                return: "number",
+            },
+        ],
+        properties: [
+            {
+                name: "length",
+                type: "number",
+                scope: "public",
+            },
+        ],
     },
 
     Map: {
         generic: "<T extends (string | number), V>",
         type: "class",
-        methods: [{
-            name: "get",
-            args: "key: T",
-            return: "V | undefined",
-        }, {
-            name: "set",
-            args: "key: T, value: V",
-            return: "void",
-        }, {
-            name: "delete",
-            args: "key: T",
-            return: "V | undefined",
-        }, {
-            name: "size",
-            return: "number",
-        }],
+        methods: [
+            {
+                name: "get",
+                args: "key: T",
+                return: "V | undefined",
+            },
+            {
+                name: "set",
+                args: "key: T, value: V",
+                return: "void",
+            },
+            {
+                name: "delete",
+                args: "key: T",
+                return: "V | undefined",
+            },
+            {
+                name: "size",
+                return: "number",
+            },
+        ],
     },
 
     RingBuffer: {
         generic: "<T>",
         type: "class",
-        methods: [{
-            name: "push",
-            args: "item: T",
-            return: "void",
-        }, {
-            name: "get",
-            args: "idx: number",
-            return: "T | undefined",
-        }, {
-            name: "pop",
-            return: "T | undefined",
-        }],
-        properties: [{
-            name: "length",
-            type: "number",
-            scope: "public",
-        }]
+        methods: [
+            {
+                name: "push",
+                args: "item: T",
+                return: "void",
+            },
+            {
+                name: "get",
+                args: "idx: number",
+                return: "T | undefined",
+            },
+            {
+                name: "pop",
+                return: "T | undefined",
+            },
+        ],
+        properties: [
+            {
+                name: "length",
+                type: "number",
+                scope: "public",
+            },
+        ],
     },
 
     ArrayList: {
@@ -132,90 +175,111 @@ module.exports = {
     Queue: {
         generic: "<T>",
         type: "class",
+        comment: "First In First Out (FIFO) queue implementation",
+        classComment: "Declare your head and tail pointers",
+        constructorComment:
+            "Initialize head and tail pointers to undefined, length to 0",
         ...length_property,
-        methods: [{
-            name: "enqueue",
-            args: "item: T",
-            return: "void",
-        }, {
-            name: "deque",
-            args: "",
-            return: "T | undefined",
-        }, {
-            name: "peek",
-            args: "",
-            return: "T | undefined",
-        }]
+        methods: [
+            {
+                name: "enqueue",
+                args: "item: T",
+                return: "void",
+                comment:
+                    "Add item to the end of the queue. declare the node. add length to the Queue. determine if a tail exists. perform the operation that adds the Node to the end of the Queue ",
+            },
+            {
+                name: "deque",
+                args: "",
+                return: "T | undefined",
+                comment:
+                    "Remove and return item from the front of the queue. If the Head of the Queue doesn't exist, return undefined. Reduce the length of the Queue. Declare the head. Perform the Head replacement operation. If the length of the Queue is 0, then the Tail is undefined. Return the head value",
+            },
+            {
+                name: "peek",
+                args: "",
+                return: "T | undefined",
+                comment: "Return item at the front without removing it",
+            },
+        ],
     },
     Stack: {
         generic: "<T>",
         type: "class",
         ...length_property,
-        methods: [{
-            name: "push",
-            args: "item: T",
-            return: "void",
-        }, {
-            name: "pop",
-            args: "",
-            return: "T | undefined",
-        }, {
-            name: "peek",
-            args: "",
-            return: "T | undefined",
-        }]
+        methods: [
+            {
+                name: "push",
+                args: "item: T",
+                return: "void",
+            },
+            {
+                name: "pop",
+                args: "",
+                return: "T | undefined",
+            },
+            {
+                name: "peek",
+                args: "",
+                return: "T | undefined",
+            },
+        ],
     },
 
     Trie: {
         type: "class",
-        methods: [{
-            name: "insert",
-            args: "item: string",
-            return: "void",
-        }, {
-            name: "delete",
-            args: "item: string",
-            return: "void",
-        }, {
-            name: "find",
-            args: "partial: string",
-            return: "string[]",
-        }]
+        methods: [
+            {
+                name: "insert",
+                args: "item: string",
+                return: "void",
+            },
+            {
+                name: "delete",
+                args: "item: string",
+                return: "void",
+            },
+            {
+                name: "find",
+                args: "partial: string",
+                return: "string[]",
+            },
+        ],
     },
 
     BubbleSort: {
         type: "fn",
         fn: "bubble_sort",
         args: "arr: number[]",
-        "return": "void",
+        return: "void",
     },
 
     InsertionSort: {
         type: "fn",
         fn: "insertion_sort",
         args: "arr: number[]",
-        "return": "void",
+        return: "void",
     },
 
     MergeSort: {
         type: "fn",
         fn: "merge_sort",
         args: "arr: number[]",
-        "return": "void",
+        return: "void",
     },
 
     QuickSort: {
         type: "fn",
         fn: "quick_sort",
         args: "arr: number[]",
-        "return": "void",
+        return: "void",
     },
 
     DijkstraList: {
         type: "fn",
         fn: "dijkstra_list",
         args: "source: number, sink: number, arr: WeightedAdjacencyList",
-        "return": "number[]",
+        return: "number[]",
     },
 
     PrimsList: {
@@ -316,4 +380,3 @@ module.exports = {
         return: "number[] | null",
     },
 };
-
